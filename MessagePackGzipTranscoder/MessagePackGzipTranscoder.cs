@@ -9,15 +9,15 @@ namespace MemcachedTranscoder
 {
     public class MessagePackGzipTranscoder : DefaultTranscoder
     {
-        static readonly ConcurrentDictionary<string, Type> readCache = new ConcurrentDictionary<string, Type>();
-        static readonly ConcurrentDictionary<Type, string> writeCache = new ConcurrentDictionary<Type, string>();
-        static readonly SerializationContext defaultContext = new SerializationContext();
+        private static readonly ConcurrentDictionary<string, Type> readCache = new ConcurrentDictionary<string, Type>();
+        private static readonly ConcurrentDictionary<Type, string> writeCache = new ConcurrentDictionary<Type, string>();
+        private static readonly SerializationContext defaultContext = new SerializationContext();
 
-        // via: http://stackoverflow.com/questions/7013771/decompress-byte-array-to-string-via-binaryreader-yields-empty-string 
+        // via: http://stackoverflow.com/questions/7013771/decompress-byte-array-to-string-via-binaryreader-yields-empty-string
         private static byte[] Compress(byte[] data)
         {
             using (var compressedStream = new MemoryStream())
-//            using (var zipStream = new GZipOutputStream(compressedStream))
+            //            using (var zipStream = new GZipOutputStream(compressedStream))
             using (var zipStream = new GZipStream(compressedStream, CompressionMode.Compress))
             {
                 zipStream.Write(data, 0, data.Length);
@@ -26,10 +26,10 @@ namespace MemcachedTranscoder
             }
         }
 
-        private static byte[] Decompress(byte[] data)
+        private static byte[] Decompress(ArraySegment<byte> data)
         {
-            using (var compressedStream = new MemoryStream(data))
-//            using (var zipStream = new GZipInputStream(compressedStream))
+            using (var compressedStream = new MemoryStream(data.Array, data.Offset, data.Count))
+            //            using (var zipStream = new GZipInputStream(compressedStream))
             using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
             using (var resultStream = new MemoryStream())
             {
@@ -38,10 +38,9 @@ namespace MemcachedTranscoder
             }
         }
 
-
         protected override object DeserializeObject(ArraySegment<byte> value)
         {
-            var data = Decompress(value.Array);
+            var data = Decompress(value);
 
             using (var ms = new MemoryStream(data))
             {
@@ -53,7 +52,7 @@ namespace MemcachedTranscoder
                 {
                     // read type
                     unpacker.Read();
-                    var typeName = (string) unpacker.Data;
+                    var typeName = (string)unpacker.Data;
                     var type = readCache.GetOrAdd(typeName, x => Type.GetType(x, throwOnError: true));
                     // Get type or Register type
 
@@ -61,7 +60,7 @@ namespace MemcachedTranscoder
                     unpacker.Read();
 
                     var unpackedValue = MessagePackSerializer.Get(type, defaultContext).UnpackFrom(unpacker);
-//                    var unpackedValue = defaultContext.GetSerializer(type).Unpack(ms);
+                    //                    var unpackedValue = defaultContext.GetSerializer(type).Unpack(ms);
 
                     return unpackedValue;
                 }

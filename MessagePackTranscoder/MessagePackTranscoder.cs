@@ -8,9 +8,9 @@ namespace MemcachedTranscoder
 {
     public class MessagePackTranscoder : DefaultTranscoder
     {
-        static readonly ConcurrentDictionary<string, Type> readCache = new ConcurrentDictionary<string, Type>();
-        static readonly ConcurrentDictionary<Type, string> writeCache = new ConcurrentDictionary<Type, string>();
-        static readonly SerializationContext defaultContext = new SerializationContext();
+        private static readonly ConcurrentDictionary<string, Type> readCache = new ConcurrentDictionary<string, Type>();
+        private static readonly ConcurrentDictionary<Type, string> writeCache = new ConcurrentDictionary<Type, string>();
+        private static readonly SerializationContext defaultContext = new SerializationContext();
 
         protected override object DeserializeObject(ArraySegment<byte> value)
         {

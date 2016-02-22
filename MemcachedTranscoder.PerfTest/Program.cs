@@ -14,12 +14,15 @@ namespace MemcachedTranscoder.PerfTest
         [ProtoMember(1)]
         [MessagePackMember(0)]
         public string MyProperty1 { get; set; }
+
         [ProtoMember(2)]
         [MessagePackMember(1)]
         public int MyProperty2 { get; set; }
+
         [ProtoMember(3)]
         [MessagePackMember(2)]
         public DateTime MyProperty3 { get; set; }
+
         [ProtoMember(4)]
         [MessagePackMember(3)]
         public bool MyProperty4 { get; set; }
@@ -34,9 +37,9 @@ namespace MemcachedTranscoder.PerfTest
         }
     }
 
-    class Program
+    internal class Program
     {
-        static void Bench(object data, ITranscoder transcoder, int repeat)
+        private static void Bench(object data, ITranscoder transcoder, int repeat)
         {
             // warmup and copy
             var item = transcoder.Serialize(data);
@@ -63,7 +66,7 @@ namespace MemcachedTranscoder.PerfTest
             }
 
             sw.Stop();
-            Console.WriteLine("S " + transcoder.GetType().Name + ":" + (int) sw.Elapsed.TotalMilliseconds + " ms");
+            Console.WriteLine("S " + transcoder.GetType().Name + ":" + (int)sw.Elapsed.TotalMilliseconds + " ms");
             sw.Restart();
 
             foreach (var x in items)
@@ -72,11 +75,11 @@ namespace MemcachedTranscoder.PerfTest
             }
 
             sw.Stop();
-            Console.WriteLine("D " + transcoder.GetType().Name + ":" + (int) sw.Elapsed.TotalMilliseconds + " ms");
+            Console.WriteLine("D " + transcoder.GetType().Name + ":" + (int)sw.Elapsed.TotalMilliseconds + " ms");
             Console.WriteLine("Size:" + item.Data.Count);
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var obj = new TestClass
             {
@@ -92,7 +95,7 @@ namespace MemcachedTranscoder.PerfTest
                     MyProperty1 = "hoge" + i,
                     MyProperty2 = i,
                     MyProperty3 = new DateTime(1999, 12, 11, 0, 0, 0, DateTimeKind.Utc).AddDays(i),
-                    MyProperty4 = i%2 == 0
+                    MyProperty4 = i % 2 == 0
                 })
                 .ToArray();
 
