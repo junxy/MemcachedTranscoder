@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Enyim.Memcached.Transcoders.MessagePack</id>
+        <id>Enyim.Memcached.Transcoders.MessagePack.Gzip</id>
         <version>1.0.1.0</version>
-        <title>MessagePackTranscoder</title>
+        <title>MessagePackGzipTranscoder</title>
         <authors>neuecc</authors>
         <owners>neuecc</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Memcached Transcoder using MsgPack-Cli, Array-Mode.</description>
+        <description>Memcached Transcoder using MsgPack-Cli, Array-Mode+Gzip.</description>
         <language>en-US</language>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>http://github.com/neuecc/MemcachedTranscoder</projectUrl>
@@ -18,6 +18,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="..\MessagePackTranscoder\bin\Release\MessagePackTranscoder.dll" target="lib\net40" />
+        <file src="..\MessagePackGzipTranscoder\bin\Release\MessagePackGzipTranscoder.dll" target="lib\net40" />
     </files>
 </package>

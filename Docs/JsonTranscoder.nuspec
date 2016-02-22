@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Enyim.Memcached.Transcoders.Json</id>
-        <version>1.0.0.0</version>
+        <version>1.0.1.0</version>
         <title>JsonTranscoder</title>
         <authors>neuecc</authors>
         <owners>neuecc</owners>
@@ -13,8 +13,8 @@
         <projectUrl>http://github.com/neuecc/MemcachedTranscoder</projectUrl>
         <tags>memcached</tags>
         <dependencies>
-            <dependency id="EnyimMemcached" version="2.12"></dependency>
-            <dependency id="Newtonsoft.Json" version="4.5.11"></dependency>
+            <dependency id="EnyimMemcached" version="2.13"></dependency>
+            <dependency id="Newtonsoft.Json" version="8.0.2"></dependency>
         </dependencies>
     </metadata>
     <files>

@@ -1,4 +1,5 @@
 nuget pack ProtoTranscoder.nuspec
 nuget pack MessagePackTranscoder.nuspec
 nuget pack MessagePackMapTranscoder.nuspec
+nuget pack MessagePackGzipTranscoder.nuspec
 nuget pack JsonTranscoder.nuspec

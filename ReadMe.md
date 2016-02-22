@@ -12,6 +12,7 @@ Install-Package Enyim.Memcached.Transcoders.ProtocolBuffers
 Install-Package Enyim.Memcached.Transcoders.Json
 Install-Package Enyim.Memcached.Transcoders.MessagePack
 Install-Package Enyim.Memcached.Transcoders.MessagePack.Map
+Install-Package Enyim.Memcached.Transcoders.MessagePack.Gzip
 ```
 
 Usage
