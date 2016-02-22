@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{1C007859-8462-4C50-A964-C2DFB39E7AD0}"
 	ProjectSection(SolutionItems) = preProject
 		Docs\JsonTranscoder.nuspec = Docs\JsonTranscoder.nuspec
+		Docs\MessagePackGzipTranscoder.nuspec = Docs\MessagePackGzipTranscoder.nuspec
 		Docs\MessagePackMapTranscoder.nuspec = Docs\MessagePackMapTranscoder.nuspec
 		Docs\MessagePackTranscoder.nuspec = Docs\MessagePackTranscoder.nuspec
 		Docs\ProtoTranscoder.nuspec = Docs\ProtoTranscoder.nuspec
