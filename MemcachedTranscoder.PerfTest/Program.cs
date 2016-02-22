@@ -47,7 +47,8 @@ namespace MemcachedTranscoder.PerfTest
 
             var items = Enumerable.Range(0, repeat).Select(_ =>
             {
-                return new CacheItem(item.Flags, new ArraySegment<byte>(item.Data.Array.ToArray(), item.Data.Offset, item.Data.Count));
+                return new CacheItem(item.Flags,
+                    new ArraySegment<byte>(item.Data.Array.ToArray(), item.Data.Offset, item.Data.Count));
             }).ToArray();
 
             GC.Collect();
@@ -62,7 +63,7 @@ namespace MemcachedTranscoder.PerfTest
             }
 
             sw.Stop();
-            Console.WriteLine("S " + transcoder.GetType().Name + ":" + (int)sw.Elapsed.TotalMilliseconds);
+            Console.WriteLine("S " + transcoder.GetType().Name + ":" + (int) sw.Elapsed.TotalMilliseconds + " ms");
             sw.Restart();
 
             foreach (var x in items)
@@ -71,7 +72,7 @@ namespace MemcachedTranscoder.PerfTest
             }
 
             sw.Stop();
-            Console.WriteLine("D " + transcoder.GetType().Name + ":" + (int)sw.Elapsed.TotalMilliseconds);
+            Console.WriteLine("D " + transcoder.GetType().Name + ":" + (int) sw.Elapsed.TotalMilliseconds + " ms");
             Console.WriteLine("Size:" + item.Data.Count);
         }
 
@@ -91,7 +92,7 @@ namespace MemcachedTranscoder.PerfTest
                     MyProperty1 = "hoge" + i,
                     MyProperty2 = i,
                     MyProperty3 = new DateTime(1999, 12, 11, 0, 0, 0, DateTimeKind.Utc).AddDays(i),
-                    MyProperty4 = i % 2 == 0
+                    MyProperty4 = i%2 == 0
                 })
                 .ToArray();
 
@@ -104,6 +105,7 @@ namespace MemcachedTranscoder.PerfTest
             Bench(obj, new ProtoTranscoder(), count);
             Bench(obj, new JsonTranscoder(), count);
             Bench(obj, new MessagePackTranscoder(), count);
+            Bench(obj, new MessagePackGzipTranscoder(), count);
             Bench(obj, new MessagePackMapTranscoder(), count);
 
             Console.WriteLine("Array******************************");
@@ -113,6 +115,7 @@ namespace MemcachedTranscoder.PerfTest
             Bench(array, new ProtoTranscoder(), count);
             Bench(array, new JsonTranscoder(), count);
             Bench(array, new MessagePackTranscoder(), count);
+            Bench(array, new MessagePackGzipTranscoder(), count);
             Bench(array, new MessagePackMapTranscoder(), count);
         }
     }
